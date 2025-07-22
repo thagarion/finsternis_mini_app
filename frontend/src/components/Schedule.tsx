@@ -7,12 +7,14 @@ interface EventItem {
   channels: number[];
 }
 
+const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8000";
+
 export const Schedule = () => {
   const [events, setEvents] = useState<EventItem[]>([]);
 
   useEffect(() => {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    fetch(`/schedule?tz=${tz}`)
+    fetch(`${apiUrl}/schedule?tz=${tz}`)
       .then((res) => res.json())
       .then((data) => setEvents(data));
   }, []);
